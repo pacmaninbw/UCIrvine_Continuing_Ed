@@ -1,0 +1,125 @@
+/*
+ * devreg.h
+ *	Portable Register Addressing to allow the code using this file to port to
+ *	other devices.
+ *  Required for assignments from EECS 497.32 Fundamentals of Embedded Systems
+ *  Design and Programming.
+ *
+ * Created: 4/27/2022 3:33:12 PM
+ *  Author: Paul Chernick
+ *
+ * Change History
+ * Created 4/27/2022.Currently only contains macros to program the PORTR
+ *		functionality, to enable and disable the LEDs. To make the LED
+ *		programming more portable LED macros were added to hide the PORTR
+ *		implementation on the device.
+ *
+ * 5/1/2022. Changed the PORT Address macros implementation, Ports can be added
+ *		by copy and paste, select region, find and replace base port register
+ *		name.
+ */ 
+
+#ifndef DEVREG_H_
+#define DEVREG_H_
+
+// LED control values
+// For this device there are 2 LEDs, so there are 4 LED states, all LEDs off,
+// all LEDs on, LED 0 on, LED 1 on.
+#define ALL_LEDS_OFF		0xFF
+#define ALL_LEDS_ON			0xFC
+#define LED_0_ON			0xFE
+#define LED_1_ON			0xFD
+#define LED_MAX_STATES		4
+#define LED_STATE_MASK		0x03	// The 2 LSBs in the PORT R register 
+
+#define PORT_DIR_OUTPUT		0xFF	// Page 148 of the Manual Bits 0 and 1 output
+#define PORT_DIR_INPUT		0xFC	// Bits 0 and 1 input
+
+// Device Port Address Offsets
+// These offsets are documented on page 160 of the manual
+// Atmel-8331-8-and-16-bit-AVR-Microcontroller-XMEGA-AU_Manual.pdf
+#define PORT_DIR_OFFSET		0x00
+#define PORT_DIRSET_OFFSET	0x01
+#define PORT_DIRCLR_OFFSET	0X02
+#define PORT_DIRTGL_OFFSET	0X03
+#define PORT_OUT_OFFSET		0x04
+#define PORT_OUTSET_OFFSET	0x05
+#define PORT_OUTCLR_OFFSET	0x06
+#define PORT_OUTTGL_OFFSET	0x07
+#define PORT_IN_OFFSET		0x08
+
+// Adding Device Port Offsets
+#define ADD_PORT_DIR_OFFSET(baseAddress)	\
+		 (baseAddress + PORT_DIR_OFFSET)
+#define ADD_PORT_DIRSET_OFFSET(baseAddress)	\
+		(baseAddress + PORT_DIRSET_OFFSET)
+#define ADD_PORT_DIRCLR_OFFSET(baseAddress)	\
+		(baseAddress + PORT_DIRCLR_OFFSET)
+#define ADD_PORT_DIRTGL_OFFSET(baseAddress)	\
+		(baseAddress + PORT_DIRTGL_OFFSET)
+#define ADD_PORT_OUT_OFFSET(baseAddress)	\
+		(baseAddress + PORT_OUT_OFFSET)
+#define ADD_PORT_OUTSET_OFFSET(baseAddress)	\
+		(baseAddress + PORT_OUTSET_OFFSET)
+#define ADD_PORT_OUTCLR_OFFSET(baseAddress) \
+		(baseAddress + PORT_OUTCLR_OFFSET)
+#define ADD_PORT_OUTTGL_OFFSET(baseAddress)	\
+		(baseAddress + PORT_OUTTGL_OFFSET)
+#define ADD_PORT_IN_OFFSET(baseAddress)		\
+		(baseAddress + PORT_IN_OFFSET)
+
+// PORT R Device Addresses
+#define PORTR_BASE_ADDRESS	0x07E0
+#define PORTR_DIR_REG		ADD_PORT_DIR_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_DIRSET_REG	ADD_PORT_DIRSET_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_DIRCLR_REG	ADD_PORT_DIRCLR_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_DIRTGL_REG	ADD_PORT_DIRTGL_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_OUT_REG		ADD_PORT_OUT_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_OUTSET_REG	ADD_PORT_OUTSET_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_OUTCLR_REG	ADD_PORT_OUTCLR_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_OUTTGL_REG	ADD_PORT_OUTTGL_OFFSET(PORTR_BASE_ADDRESS)
+#define PORTR_IN_REG		ADD_PORT_IN_OFFSET(PORTR_BASE_ADDRESS)
+
+// PORT A Device Addresses
+#define PORTA_BASE_ADDRESS	0x0600
+#define PORTA_DIR_REG		ADD_PORT_DIR_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_DIRSET_REG	ADD_PORT_DIRSET_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_DIRCLR_REG	ADD_PORT_DIRCLR_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_DIRTGL_REG	ADD_PORT_DIRTGL_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_OUT_REG		ADD_PORT_OUT_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_OUTSET_REG	ADD_PORT_OUTSET_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_OUTCLR_REG	ADD_PORT_OUTCLR_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_OUTTGL_REG	ADD_PORT_OUTTGL_OFFSET(PORTA_BASE_ADDRESS)
+#define PORTA_IN_REG		ADD_PORT_IN_OFFSET(PORTA_BASE_ADDRESS)
+
+// PORT B Device Addresses
+#define PORTB_BASE_ADDRESS	0x0620
+#define PORTB_DIR_REG		ADD_PORT_DIR_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_DIRSET_REG	ADD_PORT_DIRSET_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_DIRCLR_REG	ADD_PORT_DIRCLR_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_DIRTGL_REG	ADD_PORT_DIRTGL_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_OUT_REG		ADD_PORT_OUT_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_OUTSET_REG	ADD_PORT_OUTSET_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_OUTCLR_REG	ADD_PORT_OUTCLR_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_OUTTGL_REG	ADD_PORT_OUTTGL_OFFSET(PORTB_BASE_ADDRESS)
+#define PORTB_IN_REG		ADD_PORT_IN_OFFSET(PORTB_BASE_ADDRESS)
+
+// PORT C Device Addresses
+#define PORTC_BASE_ADDRESS	0x0620
+#define PORTC_DIR_REG		ADD_PORT_DIR_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_DIRSET_REG	ADD_PORT_DIRSET_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_DIRCLR_REG	ADD_PORT_DIRCLR_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_DIRTGL_REG	ADD_PORT_DIRTGL_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_OUT_REG		ADD_PORT_OUT_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_OUTSET_REG	ADD_PORT_OUTSET_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_OUTCLR_REG	ADD_PORT_OUTCLR_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_OUTTGL_REG	ADD_PORT_OUTTGL_OFFSET(PORTC_BASE_ADDRESS)
+#define PORTC_IN_REG		ADD_PORT_IN_OFFSET(PORTC_BASE_ADDRESS)
+
+// Portable names for device registers does not require knowledge of device
+#define LED_ENABLE_REG		PORTR_DIR_REG			
+#define LED_TOGGLE_REG		PORTR_OUTTGL_REG
+#define ENABLE_LEDS			PORT_DIR_OUTPUT
+#define DISABLE_LEDS		PORT_DIR_INPUT
+
+#endif /* DEVREG_H_ */
