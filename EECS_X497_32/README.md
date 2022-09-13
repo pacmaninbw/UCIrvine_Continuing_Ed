@@ -16,8 +16,8 @@ At the end of this course, students will be able to:
  - Describe the basic software architectures  
 
 ## Prerequisite  
- 1 EECS 805, C programming for Embedded Systems, or equivalent experience
- 2 Basic background in Electrical Engineering, covering basic analog and digital principles
+ 1 EECS 805, C programming for Embedded Systems, or equivalent experience  
+ 2 Basic background in Electrical Engineering, covering basic analog and digital principles  
  
 ## Device Programmed  
 Microchip(Atmel) XMEGA-A3BU Xplained Development Kit, Mfr. Part Number: ATXMEGAA3BU-XPLD
